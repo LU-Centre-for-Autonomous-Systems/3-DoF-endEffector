@@ -55,7 +55,7 @@ VL53L0X.PerformContinuousRangingMeasurement(&RangingMeasurementData);
   delay(100);
   a=1;
  }
- tearDistance = newDistance/51;  // divide by one more than max i value in for loop
+ tearDistance = newDistance/51;  // divide by one more than max i value in for loop, zero the sensor 
 Serial.print(tearDistance);
 }
 
@@ -67,7 +67,7 @@ Serial.print("LL:");Serial.print(-15);Serial.print(",");
 SERIAL.print("distance:");
 int distance = RangingMeasurementData.RangeMilliMeter;
 realDistance = ((distance/m)-b) - tearDistance;
-ADCFilter.Filter(realDistance);
+ADCFilter.Filter(realDistance);                    // exponential filter, behaviour can be changed by changing the filterWeight variable value
 filteredDistance = ADCFilter.Current();
 SERIAL.print(realDistance); Serial.print(",");
 Serial.print("filteredDistance:");Serial.println(filteredDistance);
